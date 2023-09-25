@@ -1,0 +1,68 @@
+﻿@page "/"
+@using NullOchSånt.Classes;
+@inject BookStore store
+
+<PageTitle>Index</PageTitle>
+
+<h1>Bookstore</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in store.GetBooks())
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Title</td>
+                <td>@book.Description</td>
+                <td>@book.Price</td>
+                <td><input @bind="count" /> <button @onclick="@(() => store.Buy(book.Id, count))">Buy</button>  </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Sålda böcker</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Count</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sale in store.GetSales())
+        {
+            <tr>
+                <td>@sale.Book.Id</td>
+                <td>@sale.Book.Title</td>
+                <td>@sale.Book.Description</td>
+                <td>@sale.Count</td>
+                <td>@sale.Total</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@code{
+    //BookStore store = new();
+    int? count = null;
+    /*protected override void OnInitialized()
+    {
+        
+    }*/
+}
